@@ -1,7 +1,5 @@
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class Demo01_JDBC {
@@ -18,16 +16,29 @@ public class Demo01_JDBC {
 		System.out.println("这是我的输出");
 		
 		try{
+			//测试连接数据库
 			//test1();
 			//test02();
 			//test03();
 			
+			//数据库操作
+			//ReadData01();
+			//insert();
+			//update();
+			//delete();
 			
-			ReadData01();
-			insert();
-			update();
-			delete();
-			System.out.println("连接成功");
+			//数据库帮助类
+			String sqlString="select * from person";
+			SqlHelper dao=new SqlHelper(url, user, password);
+			person p1=new person();
+			ArrayList<person> list=dao.Query(p1,sqlString);
+			
+			for (int i = 0; i < list.size(); i++) {
+				person p=list.get(i);
+				System.out.println("id="+p.id+"\t name="+p.name);
+			}
+			
+			System.out.println("成功");
 		}catch(Exception ex){
 			
 			System.out.println("连接出错");

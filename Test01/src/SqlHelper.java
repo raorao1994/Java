@@ -14,10 +14,10 @@ public class SqlHelper {
 	/*
 	 * 构造方法
 	 * */
-	public SqlHelper(String url,String root,String pwd){
+	public SqlHelper(String url,String user,String password){
 		this.url=url;
-		this.root=root;
-		this.pwd=pwd;
+		this.root=user;
+		this.pwd=password;
 	}
 	
 	/*
@@ -35,29 +35,42 @@ public class SqlHelper {
 		}
 		
 	}
-	
-	public <T extends Object> List<T> Query(String sql)
+	/*
+	 * Query执行sql语句，获取数据
+	 * */
+	public <T extends Object> ArrayList<T> Query(T t,String sql)
 	{
 		
 		try {
-			T o = null;
 			//获取Class对象  
-	        Class cls =  Class.forName(o.getClass().getName());
-			java.lang.reflect.Field  fields[] = cls.getDeclaredFields(); 
+	        Class cls =  Class.forName(t.getClass().getName());
+	        //获取类字段
+			java.lang.reflect.Field  fields[] = cls.getFields(); 
+			//获取连接数据库对象
 			Connection conn=GetConnection();
+			//创建mysql执行对象
 			PreparedStatement statement=conn.prepareStatement(sql);
+			//执行sql语句
 			ResultSet result=statement.executeQuery();
+			//返回对象
+			ArrayList<T> result1=new ArrayList<T>();
 			while(result.next())
 			{
-				result.getString("");
 				Object obj=cls.newInstance();
-				
+				//为每一个对象字段赋值
+				for (int i = 0; i < fields.length; i++) {
+					java.lang.reflect.Field field = fields[i];
+					String name=field.getName();
+					Object val=result.getObject(name);
+					field.set(obj,val);
+				}
+				result1.add((T)obj);
 			}
 			conn.close();
+			return result1;
 		} catch (Exception e) {
 			// TODO: handle exception
 			return null;
 		}
-		return null;
 	}
 }
