@@ -24,6 +24,7 @@ public class GetSqlSessionFactory {
 		{
 			ex.printStackTrace();
 		}
+
 		sqlSessionFactory=new SqlSessionFactoryBuilder().build(read);
 	}
 	

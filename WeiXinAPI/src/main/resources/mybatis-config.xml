@@ -14,10 +14,16 @@
 		</environment>
 	</environments>
 	
-	<!--是使用实体配置的实现，如果使用注解则不需要添加。-->
-    <!-- <mappers> <mapper resource="mybatis/User.xml"/> </mappers> -->
-    <mappers>
-    	<mapper resource="com.pushshow.weixin.mapping.PersonMapping"/>
-    </mappers>
-    
+	<!--
+	是使用实体配置的实现，如果使用注解则不需要添加。
+	mapper设置绝对路径、相对路径或者是类名
+	package是包名，批量加载
+	<package name="com.pushshow.weixin.mapping"/>
+	<mapper class="com.pushshow.weixin.mapping.IPersonMapping"/>  
+	-->
+	<mappers> 
+		
+		<package name="com.pushshow.weixin.mapping"/>
+	</mappers>
+	
 </configuration>
