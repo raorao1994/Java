@@ -11,7 +11,6 @@ public class PersonDao {
 	public String getentity(int id)
 	{
 		String result="";
-		GetSqlSessionFactory.getInstance();
 		SqlSession session = GetSqlSessionFactory.getSqlSessionFactory().openSession();
 		try
 		{
@@ -19,7 +18,6 @@ public class PersonDao {
 			//session.commit();// 提交事务
 			result=entity.getName();
 			//result=new JSONUtils().getJsonByListObj(entity);
-			
 		} 
 		catch (Exception e)
 		{

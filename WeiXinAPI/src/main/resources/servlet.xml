@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:util="http://www.springframework.org/schema/util" xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+<beans 
+	xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:util="http://www.springframework.org/schema/util" 
+    xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+    xmlns:tx="http://www.springframework.org/schema/tx"
     xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
     http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd 
     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd
     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd" default-autowire="byName">
     
     <description>demo</description>
     <!-- 注册Bean -->
     <bean id = "authority" class="com.pushshow.weixin.authority.Login"> </bean>
+    
+    <!-- 通过mvc:resources设置静态资源，这样servlet就会处理这些静态资源，而不通过控制器 -->
+    <!-- 设置不过滤内容，比如:css,jquery,img 等资源文件 -->
+    <!--所有引用js的文件，从laydate中找-->
+    <mvc:resources mapping="/swagger/**" location="/swagger/"/>
+    <!-- 添加注解驱动 -->
+    <mvc:annotation-driven/>
+    <!-- 将 springSwaggerConfig加载到spring容器 -->
+	<bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig" />
+    <!-- 将自定义的swagger配置类加载到spring容器 -->
+	<bean class="com.pushshow.weixin.utility.SwaggerConfig" />
+	
 </beans>

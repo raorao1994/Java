@@ -37,6 +37,10 @@ public class GetSqlSessionFactory {
  
 	public static SqlSessionFactory getSqlSessionFactory()
 	{
+		if(sqlSessionFactory==null)
+		{
+			getInstance();
+		}
 		return sqlSessionFactory;
 	}
 

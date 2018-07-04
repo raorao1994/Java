@@ -22,7 +22,6 @@
 	<mapper class="com.pushshow.weixin.mapping.IPersonMapping"/>  
 	-->
 	<mappers> 
-		
 		<package name="com.pushshow.weixin.mapping"/>
 	</mappers>
 	
