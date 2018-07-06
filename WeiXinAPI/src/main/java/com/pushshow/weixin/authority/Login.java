@@ -19,7 +19,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
  * 权限验证包
  * */
 @Controller
-@Api(value="Login")
+@Api(value="authority")
 public class Login {
 	
 	private static Logger logger =Logger.getLogger(Login.class);
