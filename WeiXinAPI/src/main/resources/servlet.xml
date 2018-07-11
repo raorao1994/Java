@@ -21,15 +21,17 @@
     <!-- 注册Bean -->
     <bean id = "authority" class="com.pushshow.weixin.authority.Login"> </bean>
     
+    <!-- 将 springSwaggerConfig加载到spring容器 -->
+	<bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" id="swagger2Config"/>
+    <!-- 将自定义的swagger配置类加载到spring容器 -->
+	<bean class="com.pushshow.weixin.utility.SwaggerConfig" ></bean>
+    
+    
     <!-- 通过mvc:resources设置静态资源，这样servlet就会处理这些静态资源，而不通过控制器 -->
     <!-- 设置不过滤内容，比如:css,jquery,img 等资源文件 -->
     <!--所有引用js的文件，从laydate中找-->
     <mvc:resources mapping="/swagger/**" location="/swagger/"/>
     <!-- 添加注解驱动 -->
     <mvc:annotation-driven/>
-    <!-- 将 springSwaggerConfig加载到spring容器 -->
-	<bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig" />
-    <!-- 将自定义的swagger配置类加载到spring容器 -->
-	<bean class="com.pushshow.weixin.utility.SwaggerConfig" />
-	
+    
 </beans>

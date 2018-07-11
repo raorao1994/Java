@@ -12,8 +12,9 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.pushshow.weixin.dao.PersonDao;
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /*
  * 权限验证包

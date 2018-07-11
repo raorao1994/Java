@@ -1,60 +1,45 @@
 package com.pushshow.weixin.utility;
+import com.google.common.base.Predicate;
 
-import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
-import com.mangofactory.swagger.models.dto.ApiInfo;
-import com.mangofactory.swagger.plugin.EnableSwagger;
-import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
-
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport; 
 
-/**
- * Created by raorao on 2018/7/4.
- */
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.List;
+
+import static com.google.common.base.Predicates.or;
+import static com.google.common.collect.Lists.newArrayList; 
+ 
 @Configuration
-@EnableSwagger
+@EnableSwagger2  
 @EnableWebMvc
-public class SwaggerConfig {
-	private SpringSwaggerConfig springSwaggerConfig;
+public class SwaggerConfig extends WebMvcConfigurationSupport {
 
-    /**
-     * Required to autowire SpringSwaggerConfig
-     */
-    @Autowired
-    public void setSpringSwaggerConfig(SpringSwaggerConfig springSwaggerConfig)
-    {
-    	
-    	Logger logger =Logger.getLogger(SwaggerConfig.class);
-    	logger.info("SwaggerConfig信息");
-    	
-        this.springSwaggerConfig = springSwaggerConfig;
-    }
-
-    /**
-     * Every SwaggerSpringMvcPlugin bean is picked up by the swagger-mvc
-     * framework - allowing for multiple swagger groups i.e. same code base
-     * multiple swagger resource listings.
-     */
     @Bean
-    public SwaggerSpringMvcPlugin customImplementation()
-    {
-        return new SwaggerSpringMvcPlugin(this.springSwaggerConfig)
-                .apiInfo(apiInfo())
-                .includePatterns(".*?");
+    public Docket customDocket() {
+        //
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo());
     }
 
-    private ApiInfo apiInfo()
-    {
-        ApiInfo apiInfo = new ApiInfo(
-                "My Apps API Title",
-                "My Apps API Description",
-                "My Apps API terms of service",
-                "My Apps API Contact Email",
-                "My Apps API Licence Type",
-                "My Apps API License URL");
-        return apiInfo;
+    private ApiInfo apiInfo() {
+        Contact contact = new Contact("老王", "https://www.baidu.me", "baidu_666@icloud.com");
+        return new ApiInfo("Blog前台API接口",//大标题 title
+                "Swagger测试demo",//小标题
+                "0.0.1",//版本
+                "www.baidu.com",//termsOfServiceUrl
+                contact,//作者
+                "Blog",//链接显示文字
+                "https://www.baidu.me"//网站链接
+        );
     }
 }
