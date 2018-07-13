@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--查找某个Bean对象时，首先根据id进行查找，将其余作为Bean的默认名称，如果ID属性不存在，则根据Name属性进行查找。id、name、类名。-->
+
+<bean id="DaoImpl" class="Spring.Dao.DaoImpl"></bean>
+<bean id="mydao" class="Spring.Dao.mydao"></bean>
+
+<bean id="ServiceImpl" class="Spring.Service.ServiceImpl" name="ServiceA">
+	<property name="dao" ref="mydao"></property>
+	<property name="name" value="这是server的名字"></property>
+	
+	<property name="lists">
+		<list>
+			<value>1</value>
+			<ref bean="mydao" />
+			<bean class="Spring.Dao.DaoImpl">
+                <property name="s" value="cuiywlists" />
+            </bean>
+		</list>
+	</property>
+	
+	<property name="sets">
+		<set>
+			<value>1</value>
+			<ref bean="mydao" />
+			<bean class="Spring.Dao.DaoImpl">
+                <property name="s" value="cuiywlists" />
+            </bean>
+		</set>
+	</property>
+	
+	<property name="maps">
+		<map>
+			<entry key="key1" value="1"></entry>
+            <entry key="key2" value-ref="DaoImpl"></entry>
+            <entry key="key3" >
+            <bean class="Spring.Dao.DaoImpl">
+                <property name="s" value="cuiywmaps" />
+            </bean>
+            </entry>
+		</map>
+	</property>
+	
+	
+	
+</bean>
+
+<alias name="ServiceA" alias="A" />
+
+<!--<bean name="daofactory1" class="Cuiyw.Spring.Service.IOCFactory" factory-method="getStaticFactoryDaoImpl"></bean>-->
+<bean name="daofactory2" class="Spring.Service.IOCFactory"></bean>
+<bean name="factorydao" factory-bean="daofactory2" factory-method="getInstanceFactoryDaoImpl"></bean>
+
+
+<bean id="beanPostProcessor" class="Spring.Service.MyBeanPostProcessor"></bean>
+<bean id="instantiationAwareBeanPostProcessor" class="Spring.Service.MyInstantiationAwareBeanPostProcessor"></bean>
+<bean id="beanFactoryPostProcessor" class="Spring.Service.MyBeanFactoryPostProcessor"></bean>
+
+<bean id="lifeCycle" class="Spring.Service.LifeCycle" init-method="myInit" destroy-method="myDestory">
+<property name="name" value="cuiyw1"></property>
+</bean>
+
+</beans>
