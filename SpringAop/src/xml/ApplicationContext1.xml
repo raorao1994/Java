@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:mvc="http://www.springframework.org/schema/mvc"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd
+">
+<bean id="serviceImpl" class="Spring.Service.ServiceImpl" />
+<bean id="serviceAspectBean" class="Spring.Service.ServiceAspect" />
+<!-- 配置一个切面 -->
+<aop:config>
+    <aop:aspect id="serviceAspect" ref="serviceAspectBean">
+        <aop:pointcut id="servicePointcut" expression="execution(* Spring.Service.*.*(..))" />
+        <!-- 配置前置通知 -->
+        <aop:before pointcut-ref="servicePointcut" method="beforeAdvice" />
+        <!-- 配置前置通知 -->
+        <aop:after pointcut-ref="servicePointcut" method="afterAdvice" />
+        <!-- 配置后置返回通知 -->
+        <aop:after-returning pointcut-ref="servicePointcut" method="afterReturnAdvice" returning="result" />
+        <!-- 配置环绕通知 -->
+        <aop:around pointcut-ref="servicePointcut" method="aroundAdvice" />
+        <!-- 异常通知 -->
+        <aop:after-throwing pointcut-ref="servicePointcut" method="throwingAdvice" throwing="e" />
+    </aop:aspect>
+</aop:config>
+</beans>

@@ -7,9 +7,11 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import Spring.IService.IFunc;
 import Spring.IService.IService;
+import Spring.Service.Console2Log;
 import Spring.Service.ConsoleLog;
 import Spring.Service.Func;
 import Spring.Service.LifeCycle;
+import Spring.Service.ServiceImpl;
 
 /**
  * Hello world!
@@ -23,9 +25,30 @@ public class App
         
         //testBean();
         //LiftCycle();
-        proxyText();
+        //proxyText();
+        aop();
     }
     
+    /*
+     * 切面
+     * */
+    public static void aop()
+    {
+    	 ApplicationContext context=new FileSystemXmlApplicationContext("E:\\SVN\\Java\\trunk\\SpringAop\\src\\xml\\ApplicationContext1.xml");
+    	 //ApplicationContext context=new ClassPathXmlApplicationContext(new String[]{"ApplicationContext1.xml"});
+         BeanFactory factory=context;
+         IService serviceImplA=(IService)factory.getBean("serviceImpl");
+         serviceImplA.service("Cuiyw ServiceA"); 
+         
+         System.out.println("-----------------------------------");
+         
+         ServiceImpl serviceImplA2=factory.getBean("serviceImpl",ServiceImpl.class);
+         serviceImplA2.service("Cuiyw ServiceA"); 
+    }
+    
+    /*
+     * 生命周期-动态代理
+     * */
     public static void proxyText()
     {
 //    	MyProxy proxy=new MyProxy();
@@ -35,7 +58,7 @@ public class App
     	
     	
     	MyProxySuper proxy=new MyProxySuper();
-    	IFunc func=(IFunc)proxy.bind(new Func(),new ConsoleLog());
+    	IFunc func=(IFunc)proxy.bind(new Func(),new Console2Log());
     	func.Add(10, 20);
     	func.sub(5, 1);
     	
@@ -47,7 +70,7 @@ public class App
     public static void LiftCycle()
     {
     	System.out.println("1--加载xml文件");
-    	ApplicationContext context=new FileSystemXmlApplicationContext("F:\\Java\\SpringAop\\src\\xml\\ApplicationContext.xml");
+    	ApplicationContext context=new FileSystemXmlApplicationContext("E:\\SVN\\Java\\trunk\\SpringAop\\src\\xml\\ApplicationContext.xml");
     	System.out.println("2--加载完xml文件");
         BeanFactory factory=context;
         System.out.println("3--BeanFactory factory=context");

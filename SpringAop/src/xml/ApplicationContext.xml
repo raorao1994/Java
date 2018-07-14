@@ -44,9 +44,6 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
             </entry>
 		</map>
 	</property>
-	
-	
-	
 </bean>
 
 <alias name="ServiceA" alias="A" />
@@ -61,7 +58,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 <bean id="beanFactoryPostProcessor" class="Spring.Service.MyBeanFactoryPostProcessor"></bean>
 
 <bean id="lifeCycle" class="Spring.Service.LifeCycle" init-method="myInit" destroy-method="myDestory">
-<property name="name" value="cuiyw1"></property>
+	<property name="name" value="cuiyw1"></property>
 </bean>
 
 </beans>
