@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>上传文件</title>
+<script type="text/javascript" src="../js/jquery.js"></script>
+</head>
+<body>
+	<h1>上传文件</h1>
+	<form action="../file/upload" enctype="multipart/form-data" method="post">
+		<input type="file" name="file" />
+		<input type="submit" name=""  value="提交" />
+	</form>
+	
+	<button id=btn>获取post数据</button>
+</body>
+</html>
+<script>
+$(function(){
+	$("#btn").click(function(){
+		$.post("../index/index",function(result){
+			alert(result);
+		})
+	});
+});
+</script>
