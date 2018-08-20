@@ -29,7 +29,7 @@ public class EncoidingFilter implements Filter {
         request.setCharacterEncoding(encoding);
         response.setCharacterEncoding(encoding);
         response.getWriter().append("do fielter");
-
+        System.out.println("执行监听器");
         //过滤通行证
         arg2.doFilter(request, response);
 	}

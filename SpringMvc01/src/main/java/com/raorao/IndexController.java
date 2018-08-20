@@ -12,7 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.raorao.model.person;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+
 //其他通用demo
+@Api(value = "Api控制器")
 @Controller
 @RequestMapping("/index")
 public class IndexController {
@@ -45,5 +52,20 @@ public class IndexController {
 		System.out.println("执行了");
 		//response.getWriter().append("这里是hello");
 		return "id="+id.toString();
+	}
+	
+    //rest服务返回json格式数据
+	@ResponseBody
+	@RequestMapping("/json")
+	@ApiResponse(code = 200, message = "success", response = person.class)
+	@ApiOperation(value = "返回json数据", response = String.class, notes = "返回json数据")
+	public person json(){
+		//response.setContentType("application/json;charset=UTF-8");
+		System.out.println("执行了json");
+		//response.getWriter().append("这里是hello");
+		person p=new person();
+		p.setName("王小二");
+		p.setAge(123);
+		return p;
 	}
 }

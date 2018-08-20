@@ -19,6 +19,9 @@
     	<property name="age" value="123"></property>
     </bean>
     
+    <bean id="Goodsdal" class="com.raorao.dao.Goodsdal"></bean>
+    <!--<bean id="GoodsDAO" class="com.raorao.mapper.GoodsDAO"></bean>-->
+    
      
     
 </beans>

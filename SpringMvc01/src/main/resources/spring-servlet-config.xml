@@ -26,6 +26,8 @@
     	<property name="maxUploadSize" value="5242880"/>
     	<property name="defaultEncoding" value="utf-8"/>   
 	</bean>
+	
+	<bean id="swagger2Config" class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration"/>
     
     
     <!-- 访问静态资源 -->
@@ -41,4 +43,6 @@
     <mvc:resources location="/img/" mapping="/img/**"/>
     <mvc:resources location="/js/" mapping="/js/**"/>
     <mvc:resources location="/html/" mapping="/html/**"/>
+    <mvc:resources location="/webjars/" mapping="/webjars/**" />
+    
 </beans>

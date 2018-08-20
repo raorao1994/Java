@@ -12,5 +12,6 @@
 	
 	<a href="index/showMessage?name=张宝山">点击跳转到index-showMessage</a>
 	<a href="html/uploadfile.html">点击跳转到上传文件页面</a>
+	<a href="html/swagger/index.html">swagger</a>
 </body>
 </html>
